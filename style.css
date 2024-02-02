@@ -1,0 +1,16 @@
+.top, #table {
+    border: 1px solid black; border-collapse: collapse; padding: 5px;
+}
+
+.top {
+    width:100px;
+}
+
+.rowElement {
+    width:100px;border: 1px solid black; border-collapse: collapse; padding: 10px;
+}
+
+#gpaInfo {
+    float:right;
+    margin: 100px;
+}

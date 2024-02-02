@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport">
+        <meta http-equiv="X-UA-Compatible">
+        <title>GPA Calculator</title>
+        <link rel="stylesheet" href="style.css">
+        <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    </head>
+
+    <body>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.0.272/jspdf.debug.js"></script>
+        <script src="script.js" defer></script>
+
+        <h2>GPA Calculator</h2>
+
+        <div>
+            <label>Enter Course Name:</label>
+            <input type="text" id="courseName" name="courseName">
+            <label>Enter Unweighted Grade:</label>
+            <input type="text" id="grade" name="courseName">
+            <label>Honors/AP/IB?</label>
+            <select name="Honors/AP" id="weightedInput">
+                <!--<option></option>-->
+                <option value="No" selected="selected">No</option>
+                <option value="Yes">Yes</option>
+            </select>
+            <label>Semester: </label>
+            <input type="number" id="semesterInput" value="1" min="1" max="30">
+        </div>
+        <div id="courseEntering">
+            <button onclick="addCourse()" class="courseButton">Add Course</button>
+            <button onclick="clearTable()" class="courseButton">Clear All Courses</button>
+            <label id="error"></label>
+        </div>
+<!--GPA Display Section-->
+        <div id="gpaInfo">
+            <h3>Unweighted GPA:</h3>
+            <h4 id="unweightedGpaDisplay"></h3>
+            <h3>Weighted GPA:</h3>
+            <h4 id="weightedGpaDisplay"></h3>
+
+        </div>
+
+
+        <table id="table">
+            <thead>
+                <tr>
+                    <th class="top">Course Name</th>
+                    <th class="top">Grade</th>
+                    <th class="top">Honors/AP?</th>
+                    <th class="top">Semester</th>
+                    <th class="top">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</th>
+                    
+                </tr>
+            </thead>
+            <tbody id="body">
+
+            </tbody>
+        </table>
+
+
+    </body>
+</html>
