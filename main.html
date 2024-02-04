@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport">
+        <meta http-equiv="X-UA-Compatible">
+        <title>GPA Calculator</title>
+        <link rel="stylesheet" href="style.css">
+        <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    </head>
+
+    <body>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.0.272/jspdf.debug.js"></script>
+        <script src="script.js" defer></script>
+
+        <div class="topnav">
+            <h2 id="title">GPA Wizard</h2>
+            <img src="/image-removebg-preview.png" height="60px">
+        </div>
+        <br>
+        <br>
+        <h2 id="head">GPA Calculator</h2>
+
+        <div id="courseInput">
+            <div id="stuff">
+            <label id="mainlabels">Add New Course</label>
+            <br>
+            <hr>
+            
+            <label class="labels label2">Enter Course Name:</label>
+            <input class="inputs input3" type="text" id="courseName" name="courseName">
+            <br>
+            <label class="labels">Enter Unweighted Grade:</label>
+            <input class="inputs input3" type="text" id="grade" name="courseName">
+            <br>
+            <label class="labels">Honors/AP/IB?</label>
+            <select class="inputs input2" name="Honors/AP" id="weightedInput">
+                <!--<option></option>-->
+                <option value="No" selected="selected">No</option>
+                <option value="Yes">Yes</option>
+            </select>
+            <br>
+            <label class="labels">Semester: </label>
+            <input class="inputs" type="number" id="semesterInput" value="1" min="1" max="30">
+            </div>
+            <br>
+        
+        <div id="courseEntering">
+            <button onclick="addCourse()" class="courseButton" id="addCourse">Add Course</button>
+            <button onclick="clearTable()" class="courseButton" id="clearCourse">Clear All Courses</button>
+            <br>
+            
+        </div>
+        <label id="error"></label>
+        <br>
+        <br>
+        <br>
+        </div>
+<!--GPA Display Section-->
+        <div id="gpaInfo">
+            <h3>Unweighted GPA:</h3>
+            <h4 class="gpa" id="unweightedGpaDisplay"></h3>
+            <h3>Weighted GPA:</h3>
+            <h4 class="gpa" id="weightedGpaDisplay"></h3>
+            <label>Grading Scale:</label>
+            <br>
+            <select name="GPA_Scale" id="gpaScale">
+                <option value="100 Point" selected="selected">100 Point Scale</option>
+                <option value="4.0 Point">4.0 Point Scale</option>
+            </select>
+            <button onclick="" class="">Update</button>
+            <br>
+            <br>
+            <button onclick="generateReport()" class="">Generate GPA Grade Report</button>
+        </div>
+
+        <div id="bigTable">
+        <table id="table">
+            <thead>
+                <tr>
+                    <th class="top">Course Name</th>
+                    <th class="top">Grade</th>
+                    <th class="top">Honors/AP?</th>
+                    <th class="top">Semester</th>
+                    <th class="top">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</th>
+                    
+                </tr>
+            </thead>
+            <tbody id="body">
+
+            </tbody>
+        </table>
+        </div>
+
+    </body>
+</html>

@@ -1,0 +1,181 @@
+body {
+    background-color: #fffbe6;
+    font-family: "Helvetica";
+    font-weight: 100
+}
+
+.topnav {
+
+    background-color: #344955;
+    overflow: hidden;
+    width: 102%;
+    margin:-10px;
+    top:10px;
+
+  }
+
+#title {
+    float: left;
+    color: #fd5523;
+    text-align: center;
+    padding: 0px 30px;
+    text-decoration: none;
+    font-size: 25px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-weight: lighter;
+}
+.labels {
+    font-size: 17px;
+    color: white;
+    padding: 40px;
+    padding-left: 30px;
+    padding-right: 5px;
+  
+}
+
+.inputs {
+    padding: 4px;
+    margin: 2px;
+    background-color: #f2f2f2;
+    font-size: 14px;
+    border-radius: 5px;
+    width: 50px;
+}
+
+.input3 {
+    width: 115px
+}
+
+
+
+#mainlabels {
+    font-size: 24px;
+    color:#40A2E3;
+    padding: 10px;
+
+    margin-top: 200px;
+}
+
+
+.courseButton {
+    margin: 15px;
+    margin-top: 25px;
+
+}
+
+#addCourse {
+    padding: 10px;
+    color:#40A2E3;
+    transition-duration: 0.4s;
+    font-size: 12px;
+    margin-top: 15px;
+    float: left;
+    margin-left: 45px;
+}
+
+#addCourse:hover  {
+    background-color: #40A2E3;
+    display: inline;
+    color: white;
+}
+
+#clearCourse {
+    float: right;
+    padding: 10px;
+    color:#40A2E3;
+    transition-duration: 0.4s;
+    margin-top: 15px;
+    margin-right: 25px;
+    font-size: 12px;
+}
+
+#clearCourse:hover  {
+    background-color: #40A2E3;
+    display: inline;
+    color: white;
+}
+
+
+
+#courseInput {
+    
+    padding: 20px;
+    padding-top: 20px;
+    margin-left: 75px;
+    width: 30%;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    background-color: #344955;/*#40A2E3;*/
+    border-radius: 8px;
+    height: 100%;
+    outline: 2px solid #40A2E3;
+    outline-offset: -10px;
+    margin-top: 10px;
+
+}
+
+#head {
+    position: absolute;
+    left: 250px;
+    width: 30%;
+    margin: 50px;
+    top: 100px;
+    padding: 10px;
+    margin-left: 500px;
+    font-weight: 600;
+    color: #40A2E3; /*#fd5523*/
+
+}
+
+.top, #table {
+    border: 1px solid black; border-collapse: collapse; padding: 5px;
+
+}
+#table {
+    border-radius: 5px;
+    position: absolute;
+    right: 100px;
+    top: 200px
+}
+.top {
+    width:100px;
+    background-color: #344955;
+    color: #40A2E3;
+    padding: 10px;
+}
+
+.rowElement {
+    width:100px;border: 1px solid black; border-collapse: collapse; padding: 10px;
+}
+
+#gpaInfo {
+    float:left;
+    margin: 100px;
+    margin-top: 30px;
+    /*
+    position: absolute;
+    right: 5%;
+    top: 25%;
+    */
+    border-style: solid;
+    padding: 25px;   
+    outline: 2px solid #40A2E3;
+    background-color: #344955;/*#40A2E3;*/
+    border-radius: 8px;
+    outline-offset: -10px;
+    color:#40A2E3;
+    margin-left: 160px;
+}
+
+.gpa {
+    color: white;
+
+}
+
+.rowElement {
+    color: #344955;
+    background-color: white;
+}
+
+#courseName {
+    width: 150px;
+}
