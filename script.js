@@ -12,7 +12,7 @@
         console.log("empty  ")
     }
     console.log(JSON.parse(localStorage.getItem("rowcount"))+"counting")
-    console.log(123)
+
     console.log(JSON.parse(localStorage.getItem(courses[2])))
     for (let courseElement of courses) {
         const newRow = document.createElement("tr")
@@ -83,6 +83,11 @@ function addCourse() {
 
     if (isNaN(+gradeInput.value)){
         errorLabel.innerText="Error: Grade value is not a number"//display error: grade value not number
+        return
+    }
+
+    if (+gradeInput.value>110){
+        errorLabel.innerText="Error: Grade value exceeds maximum limit"//display error: grade value not number
         return
     }
 
@@ -183,6 +188,7 @@ function createDeleteButton(newRow,rowNumber) {
 
     deleteColumn.className = "rowElement"
     deleteButton.innerText= "Delete"
+    deleteButton.classList.add("deleteElement")
 
     
 
@@ -296,8 +302,16 @@ function updateGPA() {
         gpa += +(JSON.parse(localStorage.getItem(courses[x])).gradeValue)
 
     }
+    const gpaScale = document.getElementById("gpaScale")
+    console.log(gpaScale.value)
 
     gpa = gpa/courses.length
+    localStorage.setItem("unweightedGPA", gpa)
+    if (gpaScale.value == "4.0 Point") {
+        gpa = (gpa/20)-1
+    }
+
+    
     gpa = gpa.toFixed(2)
     console.log(gpa)
     //iterate through course list
@@ -314,30 +328,83 @@ function updateGPA() {
         else {
             weightedGPA = weightedGPA + 7 + +(JSON.parse(localStorage.getItem(courses[x])).gradeValue)
         }
-        console.log(gpa)
     }
     weightedGPA = weightedGPA/courses.length
+    localStorage.setItem("weightedGPA", weightedGPA)
+
+    if (gpaScale.value == "4.0 Point") {
+        weightedGPA = (weightedGPA/20)-1
+        
+    }
     weightedGPA = weightedGPA.toFixed(2)
 
     const weightedGpaElement = document.getElementById("weightedGpaDisplay")
     weightedGpaElement.innerText = weightedGPA
 
+    
 
 }
 
 function generateReport() {
+    let xValue = 45
     let semesterLength = JSON.parse(localStorage.getItem("semesterCount"))
-    for (let x=0; x<semesterLength-1; x++) {
-        console.log("Semester "+(x+1))
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+    var img = new Image()
+    img.src = '/Logo.png'
+    doc.addImage(img, 'png', 80, 5, 50, 15)
+    doc.setFillColor(52,73,85);
+    doc.rect(25, 10, 40, 8, 'F');
+    doc.setFontSize(14)
+    doc.setTextColor(64,162,227)
+    doc.text(29,15.5, 'GPA Summary');
+    
+    doc.setTextColor(0,0,0)
+    doc.setFontSize(10)
+    doc.text(29, 25, "Weighted: " + JSON.parse(localStorage.getItem("weightedGPA")).toFixed(2) +" / " +((JSON.parse(localStorage.getItem("weightedGPA")))/20-1).toFixed(2))
+    doc.text(28, 33, "Unweighted: " + JSON.parse(localStorage.getItem("unweightedGPA")).toFixed(2) +" / " +((JSON.parse(localStorage.getItem("unweightedGPA")))/20-1).toFixed(2))
+    //loop over each individual semester
+    for (let x=0; x<semesterLength; x++) {
+        let sum=0
+        let weightedSum=0
+        doc.setFillColor(52,73,85);
+        doc.rect(85, xValue, 40, 8, 'F');
+        doc.setFontSize(14)
+        doc.setTextColor(64,162,227)
+        doc.text(93 ,xValue+5.5, 'Semester '+(x+1));
         let individualSemester = JSON.parse(localStorage.getItem("semester"+(x+1)))
-        //declare var of semester x .length
+        doc.setTextColor(0,0,0)
+        xValue+=14
+        doc.setFontSize(10)
+        //loop over each grade course thing
         for (let y=0; y<individualSemester.length; y++) {
+            let individualCourse = JSON.parse(localStorage.getItem(individualSemester[y]))
+            let honors = ""
+            if (individualCourse.weightedValue!="No") {
+                honors = "  Honors"
+            }
+            doc.text(82, xValue, individualCourse.courseName + "      Grade: "+(+individualCourse.gradeValue).toFixed(2) + " U/W" + honors)
             console.log(individualSemester[y])
+            console.log("Course Name: " +individualCourse.courseName)
+            xValue+=5
+            sum+=(+individualCourse.gradeValue)
+            if (individualCourse.weightedValue=="No") {
+                weightedSum+=(+individualCourse.gradeValue)
+            }
+            else {
+                weightedSum+=(+individualCourse.gradeValue)+7
+            }
         }
+        xValue+=5
+        console.log(individualSemester.length)
+        console.log(sum)
+        doc.text(85, xValue, "GPA: "+(weightedSum/individualSemester.length).toFixed(2) +"   U/W GPA: "+ (sum/individualSemester.length).toFixed(2))
         //for loop, looping through all of that stuff
         //for each thing, print out grade
         //outside of loop, calculate semester gpa
+        xValue+=15
     }
+    doc.output('dataurlnewwindow');
 }
 
 //updateGPA()
