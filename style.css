@@ -16,13 +16,14 @@ body {
 
 #title {
     float: left;
-    color: #fd5523;
+    color: #40A2E3;
     text-align: center;
     padding: 0px 30px;
     text-decoration: none;
     font-size: 25px;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     font-weight: lighter;
+    margin-right: -20px;
 }
 .labels {
     font-size: 17px;
@@ -40,13 +41,18 @@ body {
     font-size: 14px;
     border-radius: 5px;
     width: 50px;
+    border-style: solid;
+    border-color:#40A2E3
 }
 
 .input3 {
     width: 115px
 }
 
-
+#error {
+    color: red;
+    margin-left: 20%;
+}
 
 #mainlabels {
     font-size: 24px;
@@ -60,7 +66,7 @@ body {
 .courseButton {
     margin: 15px;
     margin-top: 25px;
-
+    font-weight: 700;
 }
 
 #addCourse {
@@ -115,7 +121,7 @@ body {
 
 #head {
     position: absolute;
-    left: 250px;
+    left: 270px;
     width: 30%;
     margin: 50px;
     top: 100px;
@@ -133,14 +139,18 @@ body {
 #table {
     border-radius: 5px;
     position: absolute;
-    right: 100px;
+    right: 45px;
     top: 200px
+    
 }
 .top {
     width:100px;
     background-color: #344955;
     color: #40A2E3;
     padding: 10px;
+    border-style: solid;
+    border-color:#40A2E3;
+    border-width: 4px;
 }
 
 .rowElement {
@@ -174,8 +184,56 @@ body {
 .rowElement {
     color: #344955;
     background-color: white;
+    border-style: solid;
+    border-color:#40A2E3;
+    border-width: 2px;
 }
 
 #courseName {
     width: 150px;
+    border-style: solid;
+    border-color:#40A2E3
+}
+
+.deleteElement {
+    padding: 6px;
+    color:#40A2E3;
+    transition-duration: 0.2s;
+    font-size: 12px;
+    border-style: solid;
+    border-color:#344955;
+    border-radius: 5px;
+}
+
+.deleteElement:hover  {
+    background-color: #40A2E3;
+    display: inline;
+    color: white;
+
+}
+
+#courseRow {
+    width: 150px;
+}
+
+#logo {
+    margin-top: 5px;
+    float: left;
+    margin-left: 20px;
+}
+
+.headers {
+    text-decoration: underline;
+    color:#344955;
+    text-decoration-color:#40A2E3;
+    
+}
+
+#info {
+    position: absolute;
+    top: 850px;
+    left: 10%;
+    background-color: white;
+    width: 500px;
+    padding: 20px;
 }
