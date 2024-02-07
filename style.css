@@ -25,6 +25,19 @@ body {
     font-weight: lighter;
     margin-right: -20px;
 }
+
+#help {
+    float: right;
+    color: #40A2E3;
+    text-align: center;
+    padding: 0px 30px;
+    text-decoration: none;
+    font-size: 25px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-weight: lighter;
+    margin-right: 40px;
+    margin-top: 18px;
+}
 .labels {
     font-size: 17px;
     color: white;
