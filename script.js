@@ -1,7 +1,6 @@
  {
-    console.log(localStorage.getItem("course"))
+    //check if there is previously saved data in local storage
     if (localStorage.getItem("course")!=null){
-        console.log("ok")
         var courses = JSON.parse(localStorage.getItem("course"))
         var rowCount = JSON.parse(localStorage.getItem("rowcount"))
         var semesterCount = JSON.parse(localStorage.getItem("semesterCount"))}
@@ -9,25 +8,20 @@
         var courses=[]
         var rowCount=0
         var semesterCount=0
-        console.log("empty  ")
     }
-    console.log(JSON.parse(localStorage.getItem("rowcount"))+"counting")
 
-    console.log(JSON.parse(localStorage.getItem(courses[2])))
+    //populate course table with saved elements
     for (let courseElement of courses) {
         const newRow = document.createElement("tr")
-        console.log(courseElement +"ok")
-        console.log(JSON.parse(localStorage.getItem(courseElement)))
+
         newRow.id = JSON.parse(localStorage.getItem(courseElement)).rowId
-        console.log(courses.length)
-        console.log(courses)
-        //console.log(x)
+
+
         const table = document.getElementById("body")
 
         const courseNameRow = document.createElement("td")
         courseNameRow.innerText = JSON.parse(localStorage.getItem(courseElement)).courseName
         courseNameRow.className = "rowElement"
-        console.log(JSON.parse(localStorage.getItem(courseElement)).courseName)
         const gradeRow = document.createElement("td")
         gradeRow.innerText = JSON.parse(localStorage.getItem(courseElement)).gradeValue
         gradeRow.className = "rowElement"
@@ -52,11 +46,7 @@
 }
 
 
-//if rowCount is empty, define courses as 0, if not then convert rowcount to int using + and set it equal to localstorage thing
-
-//add stuff in from local storage with loop if courses is not undefined
-
-
+//takes input from text fields, stores data into local storage, creates new row in table for course
 function addCourse() {
 
         //get input from course thing
@@ -65,41 +55,44 @@ function addCourse() {
     const weightedInput = document.getElementById("weightedInput")
     const semesterInput = document.getElementById("semesterInput")
 
-    //if input is empty or something return error
 
     //set error display label to nothing
     const errorLabel = document.getElementById("error")
     errorLabel.innerText=""
 
+    //check if course name is too long
     if (courseInput.value.length>35){
         errorLabel.innerText="Error: input is too long";
         return
     }
+
+    //check if any fields are blank
     if (courseInput.value==""||gradeInput.value==""){
         errorLabel.innerText="Error: 1 or more fields are blank"//display error: 1 or more fields are blank
-        console.log(courseInput.value + gradeInput.value)
         return
     }
 
+    //check if grade is a number
     if (isNaN(+gradeInput.value)){
         errorLabel.innerText="Error: Grade value is not a number"//display error: grade value not number
         return
     }
 
+    //check if grade exceeds 110
     if (+gradeInput.value>110){
         errorLabel.innerText="Error: Grade value exceeds maximum limit"//display error: grade value not number
         return
     }
 
+    //check if semester value is a valid input
     if (isNaN(+semesterInput.value)||semesterInput.value==""){
         errorLabel.innerText="Error: Semester value is not a number/empty"//display error: grade value not number
         return
     }
 
-
+    //create individual row elements
     const newRow = document.createElement("tr")
     newRow.id = rowCount
-    console.log("rowcount: "+rowCount)
 
     const table = document.getElementById("body")
 
@@ -123,7 +116,7 @@ function addCourse() {
 
 
     
-    //create new row, set row id to #row1 ("#row" + rowId)
+
     //append info to row
     
     newRow.appendChild(courseNameRow)
@@ -134,8 +127,8 @@ function addCourse() {
     table.appendChild(newRow)
 
 
-    console.log("class, " +rowCount)
-    //add info in dictionary format to array list
+
+    //add course info in dictionary format to local storage
 
     let courseInfo = {
         rowId: rowCount,
@@ -147,14 +140,12 @@ function addCourse() {
 
     localStorage.setItem(rowCount, JSON.stringify(courseInfo))
     courses.push(rowCount)
-    //run add gpa function
-    console.log(localStorage.getItem(rowCount))
+
 
     localStorage.setItem("course", JSON.stringify(courses))
     
     if (JSON.parse(localStorage.getItem("semester"+semesterInput.value))==null){
         localStorage.setItem("semester"+(semesterInput.value), JSON.stringify([rowCount]))
-        console.log("firs"+JSON.parse(localStorage.getItem("semester"+semesterInput.value)))
         semesterCount++
         localStorage.setItem("semesterCount", JSON.stringify(semesterCount))
     }
@@ -162,10 +153,8 @@ function addCourse() {
         let semesterArray = JSON.parse(localStorage.getItem("semester"+semesterInput.value))
         semesterArray.push(rowCount)
         localStorage.setItem("semester"+semesterInput.value, JSON.stringify(semesterArray))
-        console.log('ok')
     }
 
-    console.log(semesterCount+"semestercoun")
     updateGPA()
 
     //clear input fields
@@ -176,7 +165,6 @@ function addCourse() {
     localStorage.setItem("rowcount", JSON.stringify(rowCount))
 
 
-    console.log(localStorage)
 }
 
 function createDeleteButton(newRow,rowNumber) {
@@ -208,11 +196,12 @@ function createDeleteButton(newRow,rowNumber) {
 }
 
 function deleteCourse(rowNumber) {
-    console.log(localStorage)
     const deletedRow = document.getElementById(rowNumber)
     let arrayValue = JSON.parse(localStorage.getItem(rowNumber)).semesterValue
     let semesterArray = JSON.parse(localStorage.getItem("semester"+arrayValue))
     
+    //search for course to be deleted, delete from local storage
+
     for (let x=0; x<semesterArray.length; x++) {
         if (semesterArray[x]==arrayValue) {
             semesterArray =semesterArray.slice(0,x).concat(semesterArray.slice(x+1))
@@ -220,8 +209,6 @@ function deleteCourse(rowNumber) {
     }
     localStorage.setItem("semester"+arrayValue, JSON.stringify(semesterArray))
 
-    console.log("rowNumber for delete course:"+rowNumber)
-    console.log(courses.slice(0,rowNumber).concat(courses.slice(rowNumber+1)))
     //remove record from list
     
     for (let x = 0; x<courses.length; x++) {
@@ -230,7 +217,6 @@ function deleteCourse(rowNumber) {
 
             courses = courses.slice(0,rowNumber).concat(courses.slice(rowNumber+1))
 
-            console.log(courses +"delete")
             localStorage.setItem("course", JSON.stringify(courses))
         }
 
@@ -240,12 +226,12 @@ function deleteCourse(rowNumber) {
 
     
     updateGPA()
-    console.log(localStorage)
 }
 
 
 
 function clearTable() {
+    //alert user, if user clicks yes then clear storage and remove all table elements
     if (confirm("Are you sure you want to clear all data?")) {
         const courseInput = document.getElementById("courseName")
         const gradeInput = document.getElementById("grade")
@@ -259,7 +245,6 @@ function clearTable() {
         rowCount=0
         for (let x=0;x<courseLength;x++) {
             const element = document.getElementById(courses[x])
-            console.log(element)
             element.remove()
         }
         courses=[]
@@ -294,32 +279,27 @@ function clearTable() {
 function updateGPA() {
     var gpa = +0;
     var weightedGPA = +0;
-    //if gpa thing is set to 4.0, calculate based on other method
-    //console.log(JSON.parse(localStorage.getItem(courses[0])).gradeValue)
+
+    //sum up gpa values
     for (var x = 0; x<courses.length; x++){
-        console.log(courses[x])
-        console.log(localStorage.getItem(courses[x]))
         gpa += +(JSON.parse(localStorage.getItem(courses[x])).gradeValue)
 
     }
     const gpaScale = document.getElementById("gpaScale")
-    console.log(gpaScale.value)
 
     gpa = gpa/courses.length
     localStorage.setItem("unweightedGPA", gpa)
+    //if gpa scale is selected to 4.0
     if (gpaScale.value == "4.0 Point") {
         gpa = (gpa/20)-1
     }
 
     
     gpa = gpa.toFixed(2)
-    console.log(gpa)
-    //iterate through course list
-    // add together gpa and stuff
-    //implementation
+
     const unweightedGpaElement = document.getElementById("unweightedGpaDisplay")
     unweightedGpaElement.innerText = gpa
-    //make sure to convert all stuff to ints using + unary operator
+ 
 
     for (var x = 0; x<courses.length; x++){
         if (JSON.parse(localStorage.getItem(courses[x])).weightedValue=="No") {
@@ -376,7 +356,7 @@ function generateReport() {
         doc.setTextColor(0,0,0)
         xValue+=14
         doc.setFontSize(10)
-        //loop over each grade course thing
+        //loop over each semester's courses
         for (let y=0; y<individualSemester.length; y++) {
             let individualCourse = JSON.parse(localStorage.getItem(individualSemester[y]))
             let honors = ""
@@ -384,8 +364,6 @@ function generateReport() {
                 honors = "  Honors"
             }
             doc.text(82, xValue, individualCourse.courseName + "      Grade: "+(+individualCourse.gradeValue).toFixed(2) + " U/W" + honors)
-            console.log(individualSemester[y])
-            console.log("Course Name: " +individualCourse.courseName)
             xValue+=5
             sum+=(+individualCourse.gradeValue)
             if (individualCourse.weightedValue=="No") {
@@ -396,15 +374,11 @@ function generateReport() {
             }
         }
         xValue+=5
-        console.log(individualSemester.length)
-        console.log(sum)
+
         doc.text(85, xValue, "GPA: "+(weightedSum/individualSemester.length).toFixed(2) +"   U/W GPA: "+ (sum/individualSemester.length).toFixed(2))
-        //for loop, looping through all of that stuff
-        //for each thing, print out grade
-        //outside of loop, calculate semester gpa
+
         xValue+=15
     }
     doc.output('dataurlnewwindow');
 }
 
-//updateGPA()
